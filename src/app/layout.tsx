@@ -1,11 +1,26 @@
 import type { Metadata } from "next"
-import { Roboto } from "next/font/google"
+import { Montserrat, Merriweather, Ubuntu_Mono } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
-const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" })
+const fontSans = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
+
+const fontSerif = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-serif",
+})
+
+const fontMono = Ubuntu_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
+})
 
 export const metadata: Metadata = {
   title: "Ledger",
@@ -20,7 +35,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", roboto.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        fontSans.variable,
+        fontSerif.variable,
+        fontMono.variable
+      )}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
@@ -30,8 +51,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster />
-          {children}
+          <TooltipProvider>
+            <Toaster />
+            {children}
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

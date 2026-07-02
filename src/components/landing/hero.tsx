@@ -15,7 +15,7 @@ export default function Hero() {
           a clean, distraction-free dashboard.
         </p>
 
-        <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+        {/* <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
           <Button
             asChild
             size="lg"
@@ -27,7 +27,7 @@ export default function Hero() {
           <Button asChild variant="outline" size="lg" className="h-12 min-w-48 transition-colors">
             <Link href="/?auth=signin">Sign In</Link>
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <div className="animate-fade-up-delay mt-20 w-full">

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import AuthModal, { AuthView } from "../auth/auth-modal"
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { User } from "better-auth"
 import { authClient } from "@/lib/auth-client"
 import { Wallet } from "lucide-react"
@@ -23,6 +23,9 @@ export default function Navbar({ initialUser }: NavbarProps) {
   const searchParams = useSearchParams()
   const [view, setView] = useState<AuthView>(null)
 
+  const router = useRouter()
+  const pathname = usePathname()
+
   useEffect(() => {
     const auth = searchParams.get("auth")
 
@@ -30,6 +33,13 @@ export default function Navbar({ initialUser }: NavbarProps) {
       setView(auth)
     }
   }, [searchParams])
+
+  const handleViewChange = (next: AuthView) => {
+    setView(next)
+    if (next === null && searchParams.get("auth")) {
+      router.replace(pathname, { scroll: false })
+    }
+  }
 
   return (
     <>
@@ -64,7 +74,7 @@ export default function Navbar({ initialUser }: NavbarProps) {
         </div>
       </header>
 
-      <AuthModal view={view} onViewChange={setView} />
+      <AuthModal view={view} onViewChange={handleViewChange} />
     </>
   )
 }

@@ -1,6 +1,5 @@
 import Hero from "@/components/landing/hero"
 import Navbar from "@/components/landing/navbar"
-import WelcomeBack from "@/components/landing/welcome-back"
 import { getCurrentUser } from "@/lib/session"
 
 export default async function Home() {
@@ -11,7 +10,7 @@ export default async function Home() {
       <Navbar initialUser={user} />
 
       <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl items-center justify-center px-6">
-        {user ? <WelcomeBack user={user} /> : <Hero />}
+        <Hero />
       </main>
     </>
   )
