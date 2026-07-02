@@ -1,8 +1,18 @@
-export default function Home() {
+import Hero from "@/components/landing/hero"
+import Navbar from "@/components/landing/navbar"
+import WelcomeBack from "@/components/landing/welcome-back"
+import { getCurrentUser } from "@/lib/session"
+
+export default async function Home() {
+  const user = await getCurrentUser()
+
   return (
-    <main className="flex flex-1 flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-semibold tracking-tight">Ledger</h1>
-      <p className="text-foreground/60 mt-2 text-lg">Personal finance, tracked simply.</p>
-    </main>
+    <>
+      <Navbar initialUser={user} />
+
+      <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl items-center justify-center px-6">
+        {user ? <WelcomeBack user={user} /> : <Hero />}
+      </main>
+    </>
   )
 }
